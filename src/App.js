@@ -1,19 +1,18 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setAuctionData } from './reducers/ahDataReducer';
+import { changeFilterValue } from './reducers/filterReducer';
+import ShowAhData from './components/ShowAhData';
 import './App.css';
 
 const App = () => {
-  const ahData = useSelector((state) => state.ahData);
   const dispatch = useDispatch();
 
-  const filterSelected = (value) => console.log(value);
+  const filterSelected = (value) => dispatch(changeFilterValue(value));
 
   useEffect(() => {
     dispatch(setAuctionData());
   }, [dispatch]);
-
-  console.log(ahData);
 
   return (
     <div>
@@ -32,6 +31,7 @@ const App = () => {
           onChange={() => filterSelected('ALCHEMY')}
         />
       </div>
+      <ShowAhData />
     </div>
   );
 };

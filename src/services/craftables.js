@@ -1,8 +1,14 @@
 import axios from 'axios';
 const baseUrl = 'http://localhost:3001/api/craftables';
 
-const getAll = () => {
-  return axios.get(baseUrl);
+const getAll = async () => {
+  const response = await axios.get(baseUrl);
+  return response.data;
 };
 
-export default { getAll };
+const getAlchemy = async () => {
+  const response = await axios.get(`${baseUrl}/alchemy`);
+  return response.data;
+};
+
+export { getAll, getAlchemy };
