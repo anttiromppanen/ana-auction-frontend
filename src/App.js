@@ -1,43 +1,30 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setAuctionData } from './reducers/ahDataReducer';
-import { changeFilterValue } from './reducers/filterReducer';
-import ShowAhData from './components/ShowAhData';
 import { filterByAlchemy } from './reducers/craftablesDataReducer';
-import './App.css';
+import SideDrawer from './components/SideDrawer';
+import AppBarRight from './components/AppBarRight';
+import MainContent from './components/MainContent';
+
+import { Box, CssBaseline } from '@mui/material';
+
+const drawerWidth = 240;
 
 const App = () => {
   const dispatch = useDispatch();
 
-  const filterSelected = (value) => dispatch(changeFilterValue(value));
-
-  const filterAlchemy = () => {
-    dispatch(filterByAlchemy());
-  };
-
   useEffect(() => {
     dispatch(setAuctionData());
+    dispatch(filterByAlchemy());
   }, [dispatch]);
 
   return (
-    <div>
-      <h1>Auction data</h1>
-      <div>
-        all{' '}
-        <input
-          type="radio"
-          name="filter"
-          onChange={() => filterSelected('ALL')}
-        />
-        alchemy{' '}
-        <input
-          type="radio"
-          name="filter"
-          onChange={() => filterAlchemy('ALCHEMY')}
-        />
-      </div>
-      <ShowAhData />
-    </div>
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBarRight drawerWidth={drawerWidth} />
+      <SideDrawer drawerWidth={drawerWidth} />
+      <MainContent />
+    </Box>
   );
 };
 
