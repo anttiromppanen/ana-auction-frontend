@@ -15,20 +15,28 @@ const ShowAhData = () => {
   const craftablesData = useSelector((state) => state.craftablesData);
   const craftablesItems = new Map();
   craftablesData.forEach((x) => craftablesItems.set(x.item_id, x.name));
+  const craftablesItemsKeys = Array.from(craftablesItems.keys());
 
-  let ahDataFiltered = ahData.reduce((filtered, option) => {
-    const craftableItem = craftablesItems.get(option.item.id);
-    if (craftableItem) {
-      const item = { ...option, name: craftableItem };
-      filtered.push(item);
+  const craftablesSortedByItem = new Map();
+  craftablesItemsKeys.forEach((x) => craftablesSortedByItem.set(x, []));
+
+  ahData.forEach((x) => {
+    const item = craftablesItems.get(x.item.id);
+    if (item) {
+      craftablesSortedByItem.get(x.item.id).push({ ...x, name: item });
     }
+  });
 
-    return filtered;
-  }, []);
+  const craftablesSortedByItemValues = Array.from(
+    craftablesSortedByItem.values()
+  );
 
-  ahDataFiltered = ahDataFiltered.slice(0, 20);
-  console.log(ahDataFiltered);
+  const craftablesSortedByBuyout = craftablesSortedByItemValues.map((x) =>
+    x.sort((a, b) => a.buyout / a.quantity - b.buyout / b.quantity)
+  );
 
+  const firstItems = craftablesSortedByBuyout.map((x) => x[0]);
+  console.log(firstItems);
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="auction house data">
@@ -37,25 +45,30 @@ const ShowAhData = () => {
             <TableCell>Name</TableCell>
             <TableCell align="right">Bid</TableCell>
             <TableCell align="right">Buyout</TableCell>
+            <TableCell align="right">Buyout per 1</TableCell>
             <TableCell align="right">Quantity</TableCell>
             <TableCell align="right">Time left</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {ahDataFiltered.map((row) => (
-            <TableRow
-              key={row.id}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {row.name}
-              </TableCell>
-              <TableCell align="right">{row.name}</TableCell>
-              <TableCell align="right">{row.bid}</TableCell>
-              <TableCell align="right">{row.buyout}</TableCell>
-              <TableCell align="right">{row.time_left}</TableCell>
-            </TableRow>
-          ))}
+          {firstItems[0] &&
+            firstItems.map((item) => (
+              <TableRow
+                key={item.id}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
+                <TableCell component="th" scope="row">
+                  {item.name}
+                </TableCell>
+                <TableCell align="right">{item.bid}</TableCell>
+                <TableCell align="right">{item.buyout}</TableCell>
+                <TableCell align="right">
+                  {item.buyout / item.quantity}
+                </TableCell>
+                <TableCell align="right">{item.quantity}</TableCell>
+                <TableCell align="right">{item.time_left}</TableCell>
+              </TableRow>
+            ))}
         </TableBody>
       </Table>
     </TableContainer>
