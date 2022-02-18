@@ -1,10 +1,13 @@
 import React from 'react';
 
 const AuctionDataItem = ({ item }) => {
-  console.log(item);
   return (
-    <tr key={item.id}>
-      <td>{item.item.name}</td>
+    <tr>
+      <td>{item.name}</td>
+      <td>{item.quantity}</td>
+      <td>{item.bid}</td>
+      <td>{item.buyout}</td>
+      <td>{item.time_left}</td>
     </tr>
   );
 };

@@ -3,8 +3,8 @@ import ahDataService from '../services/auctionData';
 const ahDataReducer = (state = [], action) => {
   switch (action.type) {
     case 'SET_AUCTION_DATA':
-      state = action.data;
-      return state;
+      const newState = action.data;
+      return newState;
     default:
       return state;
   }

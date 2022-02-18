@@ -1,14 +1,19 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { setAuctionData } from './reducers/ahDataReducer';
 import { changeFilterValue } from './reducers/filterReducer';
 import ShowAhData from './components/ShowAhData';
+import { filterByAlchemy } from './reducers/craftablesDataReducer';
 import './App.css';
 
 const App = () => {
   const dispatch = useDispatch();
 
   const filterSelected = (value) => dispatch(changeFilterValue(value));
+
+  const filterAlchemy = () => {
+    dispatch(filterByAlchemy());
+  };
 
   useEffect(() => {
     dispatch(setAuctionData());
@@ -28,7 +33,7 @@ const App = () => {
         <input
           type="radio"
           name="filter"
-          onChange={() => filterSelected('ALCHEMY')}
+          onChange={() => filterAlchemy('ALCHEMY')}
         />
       </div>
       <ShowAhData />
