@@ -1,9 +1,11 @@
 import React from 'react';
 import {
   TableContainer,
+  Box,
   styled,
   tableCellClasses,
   Paper,
+  CircularProgress,
   Collapse,
   IconButton,
   TableHead,
@@ -14,45 +16,6 @@ import {
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
-const createData = (id, name, listings, lowestBuyout) => {
-  return {
-    id,
-    name,
-    listings,
-    lowestBuyout,
-    history: [
-      {
-        id: 1,
-        name: 'Flask',
-        bid: 555,
-        buyout: 12345,
-        time_left: 'max',
-      },
-      {
-        id: 2,
-        name: 'Flask',
-        bid: 555,
-        buyout: 12345,
-        time_left: 'max',
-      },
-      {
-        id: 3,
-        name: 'Flask',
-        bid: 555,
-        buyout: 12345,
-        time_left: 'max',
-      },
-      {
-        id: 5,
-        name: 'Flask',
-        bid: 555,
-        buyout: 12345,
-        time_left: 'max',
-      },
-    ],
-  };
-};
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -66,7 +29,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
-    backgroundColor: '#FAFAFA',
+    backgroundColor: '#F9FBFF',
   },
   // hide last border
   '&:last-child td, &:last-child th': {
@@ -74,8 +37,7 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
-const Row = (props) => {
-  const { row } = props;
+const Row = ({ row }) => {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -91,12 +53,12 @@ const Row = (props) => {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row">
-          {row.id}
+          {row[0].item.id}
         </TableCell>
-        <TableCell>{row.name}</TableCell>
-        <TableCell>{row.listings}</TableCell>
-        <TableCell>{row.lowestBuyout}</TableCell>
-        <TableCell>No</TableCell>
+        <TableCell>{row[0].name}</TableCell>
+        <TableCell>{row.length}</TableCell>
+        <TableCell>{row[0].buyout / row[0].quantity}</TableCell>
+        <TableCell>Not done</TableCell>
       </TableRow>
       <TableRow>
         <TableCell style={{ padding: 0 }} colSpan={6}>
@@ -107,18 +69,24 @@ const Row = (props) => {
                   <TableCell>Name</TableCell>
                   <TableCell>Bid</TableCell>
                   <TableCell>Buyout</TableCell>
+                  <TableCell>Buyout per 1</TableCell>
+                  <TableCell>Quantity</TableCell>
                   <TableCell>Time left</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {row.history.map((historyRow) => (
-                  <StyledTableRow key={historyRow.id}>
+                {row.slice(0, 20).map((item) => (
+                  <StyledTableRow key={item.id}>
                     <StyledTableCell component="th" scope="row">
-                      {historyRow.name}
+                      {item.name}
                     </StyledTableCell>
-                    <StyledTableCell>{historyRow.bid}</StyledTableCell>
-                    <StyledTableCell>{historyRow.buyout}</StyledTableCell>
-                    <StyledTableCell>{historyRow.time_left}</StyledTableCell>
+                    <StyledTableCell>{item.bid}</StyledTableCell>
+                    <StyledTableCell>{item.buyout}</StyledTableCell>
+                    <StyledTableCell>
+                      {item.buyout / item.quantity}
+                    </StyledTableCell>
+                    <StyledTableCell>{item.quantity}</StyledTableCell>
+                    <StyledTableCell>{item.time_left}</StyledTableCell>
                   </StyledTableRow>
                 ))}
               </TableBody>
@@ -130,35 +98,53 @@ const Row = (props) => {
   );
 };
 
-const rows = [
-  createData(1, 'Flask1', 150, 50),
-  createData(2, 'Flask2', 200, 150),
-  createData(3, 'Flask3', 350, 500),
-  createData(4, 'Flask4', 25, 60),
-  createData(5, 'Flask5', 600, 666),
-];
-
-const MainDataTable = () => {
+const MainDataTable = ({ ahData }) => {
+  console.log(ahData);
   return (
-    <TableContainer component={Paper}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell>ID</TableCell>
-            <TableCell>Name</TableCell>
-            <TableCell>Num of listings</TableCell>
-            <TableCell>Lowest buyout</TableCell>
-            <TableCell>Profitable to craft</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.name} row={row} />
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      {ahData.length > 0 && ahData[0].length > 0 ? (
+        <TableContainer component={Paper}>
+          <Table aria-label="collapsible table">
+            <TableHead>
+              <TableRow>
+                <TableCell />
+                <TableCell>ID</TableCell>
+                <TableCell>Name</TableCell>
+                <TableCell>Num of listings</TableCell>
+                <TableCell>Lowest buyout</TableCell>
+                <TableCell>Profitable to craft</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {ahData.map((row) => (
+                <Row key={row[0].id} row={row} />
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          minHeight="50vh"
+        >
+          <div style={{ position: 'relative' }}>
+            <span
+              style={{
+                position: 'absolute',
+                top: '50px',
+                left: '-40px',
+                width: '100vh',
+              }}
+            >
+              Loading AH data...
+            </span>
+            <CircularProgress />
+          </div>
+        </Box>
+      )}
+    </div>
   );
 };
 

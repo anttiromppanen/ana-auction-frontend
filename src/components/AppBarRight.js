@@ -10,9 +10,9 @@ const AppBarRight = ({ drawerWidth }) => {
         ml: `${drawerWidth}px`,
       }}
     >
-      <Toolbar>
+      <Toolbar style={{ justifyContent: 'center' }}>
         <Typography variant="h6" noWrap component="div">
-          Permanent drawer
+          Auction house data
         </Typography>
       </Toolbar>
     </AppBar>

@@ -13,10 +13,10 @@ const drawerWidth = 240;
 const App = () => {
   const dispatch = useDispatch();
 
-  //useEffect(() => {
-  //  dispatch(setAuctionData());
-  //  dispatch(filterByAlchemy());
-  //}, [dispatch]);
+  useEffect(() => {
+    dispatch(setAuctionData());
+    dispatch(filterByAlchemy());
+  }, [dispatch]);
 
   return (
     <Box sx={{ display: 'flex' }}>
