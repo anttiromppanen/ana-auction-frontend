@@ -2,13 +2,18 @@ import {
   Divider,
   Drawer,
   List,
-  ListItem,
+  ListItemButton,
   ListItemText,
   Toolbar,
 } from '@mui/material';
+import { filterByProfessionName } from '../reducers/craftablesDataReducer';
+import { useSelector, useDispatch } from 'react-redux';
 import React from 'react';
 
 const SideDrawer = ({ drawerWidth }) => {
+  const dispatch = useDispatch();
+  const professions = useSelector((state) => state.professions);
+
   return (
     <Drawer
       sx={{
@@ -25,9 +30,15 @@ const SideDrawer = ({ drawerWidth }) => {
       <Toolbar />
       <Divider />
       <List>
-        <ListItem button>
-          <ListItemText>Alchemy</ListItemText>
-        </ListItem>
+        {professions &&
+          professions.map((x) => (
+            <ListItemButton
+              key={x}
+              onClick={() => dispatch(filterByProfessionName(x))}
+            >
+              <ListItemText>{x}</ListItemText>
+            </ListItemButton>
+          ))}
       </List>
     </Drawer>
   );

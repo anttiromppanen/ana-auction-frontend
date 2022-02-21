@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAuctionData } from './reducers/ahDataReducer';
-import { filterByAlchemy } from './reducers/craftablesDataReducer';
+import { getProfessions } from './reducers/professionsReducer';
 import SideDrawer from './components/SideDrawer';
 import AppBarRight from './components/AppBarRight';
 import MainContent from './components/MainContent';
@@ -15,7 +15,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(setAuctionData());
-    dispatch(filterByAlchemy());
+    dispatch(getProfessions());
   }, [dispatch]);
 
   return (

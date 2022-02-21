@@ -11,4 +11,28 @@ const getAlchemy = async () => {
   return response.data;
 };
 
-export { getAll, getAlchemy };
+const getTailoring = async () => {
+  const response = await axios.get(`${baseUrl}/tailoring`);
+  return response.data;
+};
+
+const getUniqueProfessions = async () => {
+  const response = await axios.get(`${baseUrl}/professions`);
+  return response.data;
+};
+
+const getCraftablesByProfessionName = async (professionNameToFilterBy) => {
+  const response = await axios.get(
+    `${baseUrl}/${professionNameToFilterBy.toLowerCase()}`
+  );
+
+  return response.data;
+};
+
+export {
+  getAll,
+  getAlchemy,
+  getTailoring,
+  getUniqueProfessions,
+  getCraftablesByProfessionName,
+};

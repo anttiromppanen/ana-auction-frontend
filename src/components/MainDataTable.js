@@ -99,7 +99,6 @@ const Row = ({ row }) => {
 };
 
 const MainDataTable = ({ ahData }) => {
-  console.log(ahData);
   return (
     <div>
       {ahData.length > 0 && ahData[0].length > 0 ? (
