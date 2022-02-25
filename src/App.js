@@ -2,27 +2,41 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setAuctionData } from './reducers/ahDataReducer';
 import { getProfessions } from './reducers/professionsReducer';
-import SideDrawer from './components/SideDrawer';
-import AppBarRight from './components/AppBarRight';
+import { showAllCraftables } from './reducers/craftablesDataReducer';
+import { Box, CssBaseline, useTheme } from '@mui/material';
+
 import MainContent from './components/MainContent';
-
-import { Box, CssBaseline } from '@mui/material';
-
-const drawerWidth = 240;
+import AppBarRight from './components/AppBarRight';
+import SideDrawer from './components/SideDrawer';
 
 const App = () => {
   const dispatch = useDispatch();
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   useEffect(() => {
-    dispatch(setAuctionData());
+    dispatch(showAllCraftables());
     dispatch(getProfessions());
+    dispatch(setAuctionData());
   }, [dispatch]);
 
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
-      <AppBarRight drawerWidth={drawerWidth} />
-      <SideDrawer drawerWidth={drawerWidth} />
+      <AppBarRight open={open} handleDrawerOpen={handleDrawerOpen} />
+      <SideDrawer
+        theme={theme}
+        open={open}
+        handleDrawerClose={handleDrawerClose}
+      />
       <MainContent />
     </Box>
   );

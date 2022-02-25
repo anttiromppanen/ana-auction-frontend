@@ -1,4 +1,5 @@
 import {
+  getAll,
   getAlchemy,
   getTailoring,
   getCraftablesByProfessionName,
@@ -12,6 +13,8 @@ const craftablesDataReducer = (state = [], action) => {
       return action.tailoringData;
     case 'FILTER_BY_PROFESSION':
       return action.craftingData;
+    case 'SHOW_ALL':
+      return action.allCraftables;
     default:
       return state;
   }
@@ -42,11 +45,21 @@ export const filterByTailoring = () => {
 export const filterByProfessionName = (professionName) => {
   return async (dispatch) => {
     const craftingData = await getCraftablesByProfessionName(professionName);
-    console.log(craftingData);
 
     dispatch({
       type: 'FILTER_BY_PROFESSION',
       craftingData,
+    });
+  };
+};
+
+export const showAllCraftables = () => {
+  return async (dispatch) => {
+    const allCraftables = await getAll();
+
+    dispatch({
+      type: 'SHOW_ALL',
+      allCraftables,
     });
   };
 };
