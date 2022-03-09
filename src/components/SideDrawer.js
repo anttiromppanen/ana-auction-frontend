@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
@@ -14,12 +15,12 @@ import IconButton from '@mui/material/IconButton';
 import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
-import { useDispatch } from 'react-redux';
 
 import {
   filterByProfessionName,
   showAllCraftables,
 } from '../reducers/craftablesDataReducer';
+import { changeActiveProfession } from '../reducers/activeProfessionReducer';
 
 const drawerWidth = 240;
 
@@ -80,8 +81,8 @@ const Drawer = styled(MuiDrawer, {
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
   ...(open && {
-    ...openedMixin(theme),
-    '& .MuiDrawer-paper': openedMixin(theme),
+    ...openedMixin(theme, drawerWidth),
+    '& .MuiDrawer-paper': openedMixin(theme, drawerWidth),
   }),
   ...(!open && {
     ...closedMixin(theme),
@@ -92,6 +93,7 @@ const Drawer = styled(MuiDrawer, {
 const SideDrawer = ({ theme, open, handleDrawerClose }) => {
   const dispatch = useDispatch();
   const professions = useSelector((state) => state.professions);
+
   return (
     <Drawer variant="permanent" open={open}>
       <DrawerHeader>
@@ -105,7 +107,12 @@ const SideDrawer = ({ theme, open, handleDrawerClose }) => {
       </DrawerHeader>
       <Divider />
       <List>
-        <ListItemButton onClick={() => dispatch(showAllCraftables())}>
+        <ListItemButton
+          onClick={() => {
+            dispatch(showAllCraftables());
+            dispatch(changeActiveProfession('All items'));
+          }}
+        >
           <ListItemIcon>
             <AllInclusiveIcon fontSize="large" />
           </ListItemIcon>
@@ -115,7 +122,10 @@ const SideDrawer = ({ theme, open, handleDrawerClose }) => {
           professions.map((x) => (
             <ListItemButton
               key={x}
-              onClick={() => dispatch(filterByProfessionName(x))}
+              onClick={() => {
+                dispatch(filterByProfessionName(x));
+                dispatch(changeActiveProfession(x));
+              }}
             >
               {menuIconSelector(x)}
               <ListItemText>{x}</ListItemText>

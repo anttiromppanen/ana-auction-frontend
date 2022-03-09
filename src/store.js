@@ -6,12 +6,14 @@ import ahDataReducer from './reducers/ahDataReducer';
 import filterReducer from './reducers/filterReducer';
 import craftablesDataReducer from './reducers/craftablesDataReducer';
 import professionsReducer from './reducers/professionsReducer';
+import activeProfessionsReducer from './reducers/activeProfessionReducer';
 
 const reducer = combineReducers({
   ahData: ahDataReducer,
   filter: filterReducer,
   craftablesData: craftablesDataReducer,
   professions: professionsReducer,
+  activeProfession: activeProfessionsReducer,
 });
 
 const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));

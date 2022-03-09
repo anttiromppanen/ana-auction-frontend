@@ -1,9 +1,11 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import Box from '@mui/material/Box';
 import MainDataTable from './MainDataTable';
 
 const ShowAhData = () => {
   const ahData = useSelector((state) => state.ahData);
+  const activeProfession = useSelector((state) => state.activeProfession);
   const craftablesData = useSelector((state) => state.craftablesData);
   const craftablesItems = new Map();
   craftablesData.forEach((x) => craftablesItems.set(x.item_id, x.name));
@@ -27,7 +29,12 @@ const ShowAhData = () => {
     x.sort((a, b) => a.buyout / a.quantity - b.buyout / b.quantity)
   );
 
-  return <MainDataTable ahData={craftablesSortedByBuyout} />;
+  return (
+    <Box>
+      <h1>{activeProfession}</h1>
+      <MainDataTable ahData={craftablesSortedByBuyout} />
+    </Box>
+  );
 };
 
 export default ShowAhData;

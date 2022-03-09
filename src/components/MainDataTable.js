@@ -42,7 +42,12 @@ const Row = ({ row }) => {
 
   return (
     <React.Fragment>
-      <TableRow sx={{ '& > *': { borderBottom: 'unset' } }}>
+      <TableRow
+        sx={{ '& > *': { borderBottom: 'unset' } }}
+        style={{
+          boxShadow: open && '-2px 35px 18px -32px rgba(0,0,0,0.14)',
+        }}
+      >
         <TableCell>
           <IconButton
             aria-label="expand row"
