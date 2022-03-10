@@ -35,6 +35,10 @@ const App = () => {
         color: '#00C6B6',
         margin: '2rem 0',
       },
+      h4: {
+        color: '#00C6B6',
+        margin: '2rem 1rem',
+      },
     },
   });
 
@@ -54,7 +58,11 @@ const App = () => {
 
   return (
     <ThemeProvider theme={darkTheme}>
-      <Box sx={{ display: 'flex' }}>
+      <Box
+        sx={{
+          display: 'flex',
+        }}
+      >
         <CssBaseline />
         <AppBarRight open={open} handleDrawerOpen={handleDrawerOpen} />
         <SideDrawer

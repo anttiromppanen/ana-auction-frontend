@@ -4,7 +4,6 @@ import {
   Box,
   styled,
   tableCellClasses,
-  Paper,
   CircularProgress,
   Collapse,
   IconButton,
@@ -13,28 +12,35 @@ import {
   TableRow,
   TableCell,
   Table,
+  Typography,
+  Paper,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+import TableRowWithBorder from './TableRowWithBorder';
+
 const HeaderCell = styled(TableCell)(({ theme }) => ({
   color: theme.palette.secondary.main,
-  fontSize: 16,
+  textTransform: 'uppercase',
+  fontSize: 18,
+  border: 0,
 }));
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  border: 0,
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: theme.palette.primary.main,
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
-    fontSize: 14,
+    fontSize: 15,
   },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
   '&:nth-of-type(odd)': {
-    backgroundColor: '#F9FBFF',
+    backgroundColor: 'rgba(0,0,0,0.1)',
   },
   // hide last border
   '&:last-child td, &:last-child th': {
@@ -42,18 +48,20 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   },
 }));
 
+const TableCellWithoutBorder = styled(TableCell)(({ theme }) => ({
+  paddingTop: '1.5rem',
+  paddingBottom: '1.5rem',
+  fontSize: 16,
+  border: 0,
+}));
+
 const Row = ({ row }) => {
   const [open, setOpen] = React.useState(false);
 
   return (
     <React.Fragment>
-      <TableRow
-        sx={{ '& > *': { borderBottom: 'unset' } }}
-        style={{
-          boxShadow: open && '-2px 35px 18px -32px rgba(0,0,0,0.14)',
-        }}
-      >
-        <TableCell>
+      <TableRowWithBorder hover onClick={() => setOpen(!open)}>
+        <TableCellWithoutBorder>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -61,33 +69,44 @@ const Row = ({ row }) => {
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
-        </TableCell>
-        <TableCell component="th" scope="row">
+        </TableCellWithoutBorder>
+        <TableCellWithoutBorder component="th" scope="row">
           {row[0].item.id}
-        </TableCell>
-        <TableCell>{row[0].name}</TableCell>
-        <TableCell>{row.length}</TableCell>
-        <TableCell>{row[0].buyout / row[0].quantity}</TableCell>
-        <TableCell>Not done</TableCell>
-      </TableRow>
+        </TableCellWithoutBorder>
+        <TableCellWithoutBorder>{row[0].name}</TableCellWithoutBorder>
+        <TableCellWithoutBorder>{row.length}</TableCellWithoutBorder>
+        <TableCellWithoutBorder>
+          {row[0].buyout / row[0].quantity}
+        </TableCellWithoutBorder>
+        <TableCellWithoutBorder>Not done</TableCellWithoutBorder>
+      </TableRowWithBorder>
       <TableRow>
-        <TableCell style={{ padding: 0 }} colSpan={6}>
+        <TableCellWithoutBorder style={{ padding: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Table size="small" aria-label="purchases">
+            <Typography variant="h4">{row[0].name}</Typography>
+            <Table
+              sx={{ marginBottom: '2rem' }}
+              size="small"
+              aria-label="purchases"
+            >
               <TableHead>
                 <TableRow>
-                  <TableCell>Name</TableCell>
-                  <TableCell>Bid</TableCell>
-                  <TableCell>Buyout</TableCell>
-                  <TableCell>Buyout per 1</TableCell>
-                  <TableCell>Quantity</TableCell>
-                  <TableCell>Time left</TableCell>
+                  <HeaderCell>Name</HeaderCell>
+                  <HeaderCell>Bid</HeaderCell>
+                  <HeaderCell>Buyout</HeaderCell>
+                  <HeaderCell>Buyout per 1</HeaderCell>
+                  <HeaderCell>Quantity</HeaderCell>
+                  <HeaderCell>Time left</HeaderCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {row.slice(0, 20).map((item) => (
                   <StyledTableRow key={item.id}>
-                    <StyledTableCell component="th" scope="row">
+                    <StyledTableCell
+                      sx={{ border: 0 }}
+                      component="th"
+                      scope="row"
+                    >
                       {item.name}
                     </StyledTableCell>
                     <StyledTableCell>{item.bid}</StyledTableCell>
@@ -102,7 +121,7 @@ const Row = ({ row }) => {
               </TableBody>
             </Table>
           </Collapse>
-        </TableCell>
+        </TableCellWithoutBorder>
       </TableRow>
     </React.Fragment>
   );
@@ -112,17 +131,25 @@ const MainDataTable = ({ ahData }) => {
   return (
     <div>
       {ahData.length > 0 && ahData[0].length > 0 ? (
-        <TableContainer>
+        <TableContainer component={Paper}>
           <Table aria-label="collapsible table">
             <TableHead>
-              <TableRow>
-                <TableCell />
-                <HeaderCell>ID</HeaderCell>
-                <HeaderCell>Name</HeaderCell>
-                <HeaderCell>Num of listings</HeaderCell>
-                <HeaderCell>Lowest buyout</HeaderCell>
+              <TableRowWithBorder>
+                <HeaderCell sx={{ borderRight: '5px solid #082032' }} />
+                <HeaderCell sx={{ borderRight: '5px solid #082032' }}>
+                  ID
+                </HeaderCell>
+                <HeaderCell sx={{ borderRight: '5px solid #082032' }}>
+                  Name
+                </HeaderCell>
+                <HeaderCell sx={{ borderRight: '5px solid #082032' }}>
+                  Num of listings
+                </HeaderCell>
+                <HeaderCell sx={{ borderRight: '5px solid #082032' }}>
+                  Lowest buyout
+                </HeaderCell>
                 <HeaderCell>Profitable to craft</HeaderCell>
-              </TableRow>
+              </TableRowWithBorder>
             </TableHead>
             <TableBody>
               {ahData.map((row) => (

@@ -2,6 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 import MainDataTable from './MainDataTable';
 
 const ShowAhData = () => {
@@ -31,8 +34,14 @@ const ShowAhData = () => {
   );
 
   return (
-    <Box>
+    <Box sx={{ marginLeft: '2rem', marginRight: '2rem' }}>
       <Typography variant="h3">{activeProfession.toUpperCase()}</Typography>
+      <FormGroup>
+        <FormControlLabel
+          control={<Switch />}
+          label="Show crafting materials"
+        />
+      </FormGroup>
       <MainDataTable ahData={craftablesSortedByBuyout} />
     </Box>
   );
