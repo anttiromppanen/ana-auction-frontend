@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = 'http://localhost:3001/api/auctiondata';
+const baseUrl = '/api/auctiondata';
 
 const getAll = () => {
   return axios.get(baseUrl);

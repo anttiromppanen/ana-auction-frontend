@@ -54,5 +54,6 @@
   },
   "prettier": {
     "singleQuote": true
-  }
+  },
+  "proxy": "http://localhost:3001"
 }
