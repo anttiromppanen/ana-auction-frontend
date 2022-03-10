@@ -17,6 +17,11 @@ import {
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
+const HeaderCell = styled(TableCell)(({ theme }) => ({
+  color: theme.palette.secondary.main,
+  fontSize: 16,
+}));
+
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     backgroundColor: theme.palette.common.black,
@@ -107,16 +112,16 @@ const MainDataTable = ({ ahData }) => {
   return (
     <div>
       {ahData.length > 0 && ahData[0].length > 0 ? (
-        <TableContainer component={Paper}>
+        <TableContainer>
           <Table aria-label="collapsible table">
             <TableHead>
               <TableRow>
                 <TableCell />
-                <TableCell>ID</TableCell>
-                <TableCell>Name</TableCell>
-                <TableCell>Num of listings</TableCell>
-                <TableCell>Lowest buyout</TableCell>
-                <TableCell>Profitable to craft</TableCell>
+                <HeaderCell>ID</HeaderCell>
+                <HeaderCell>Name</HeaderCell>
+                <HeaderCell>Num of listings</HeaderCell>
+                <HeaderCell>Lowest buyout</HeaderCell>
+                <HeaderCell>Profitable to craft</HeaderCell>
               </TableRow>
             </TableHead>
             <TableBody>

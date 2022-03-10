@@ -16,6 +16,25 @@ const App = () => {
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
+      primary: {
+        main: '#00C6B6',
+      },
+      secondary: {
+        main: '#99AEC5',
+      },
+      text: {
+        primary: '#BEC5CC',
+      },
+      background: {
+        paper: '#082032',
+        default: '#082032',
+      },
+    },
+    typography: {
+      h3: {
+        color: '#00C6B6',
+        margin: '2rem 0',
+      },
     },
   });
 

@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
 import MainDataTable from './MainDataTable';
 
 const ShowAhData = () => {
@@ -31,7 +32,7 @@ const ShowAhData = () => {
 
   return (
     <Box>
-      <h1>{activeProfession}</h1>
+      <Typography variant="h3">{activeProfession.toUpperCase()}</Typography>
       <MainDataTable ahData={craftablesSortedByBuyout} />
     </Box>
   );
