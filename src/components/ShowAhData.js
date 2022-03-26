@@ -12,7 +12,9 @@ const ShowAhData = () => {
   const activeProfession = useSelector((state) => state.activeProfession);
   const craftablesData = useSelector((state) => state.craftablesData);
   const craftablesItems = new Map();
-  craftablesData.forEach((x) => craftablesItems.set(x.item_id, x.name));
+  craftablesData.forEach((x) =>
+    craftablesItems.set(x.item_id, { name: x.name, icon: x.icon || '' })
+  );
   const craftablesItemsKeys = Array.from(craftablesItems.keys());
 
   const craftablesSortedByItem = new Map();
@@ -21,7 +23,9 @@ const ShowAhData = () => {
   ahData.forEach((x) => {
     const item = craftablesItems.get(x.item.id);
     if (item) {
-      craftablesSortedByItem.get(x.item.id).push({ ...x, name: item });
+      craftablesSortedByItem
+        .get(x.item.id)
+        .push({ ...x, name: item.name, icon: item.icon });
     }
   });
 

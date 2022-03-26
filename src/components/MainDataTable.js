@@ -14,11 +14,13 @@ import {
   Table,
   Typography,
   Paper,
+  Grid,
 } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-
 import TableRowWithBorder from './TableRowWithBorder';
+import currencyFormatting from '../utils/currencyFormatting';
+import ShowCurrency from './ShowCurrency';
 
 const HeaderCell = styled(TableCell)(({ theme }) => ({
   color: theme.palette.secondary.main,
@@ -73,10 +75,21 @@ const Row = ({ row }) => {
         <TableCellWithoutBorder component="th" scope="row">
           {row[0].item.id}
         </TableCellWithoutBorder>
-        <TableCellWithoutBorder>{row[0].name}</TableCellWithoutBorder>
+        <TableCellWithoutBorder>
+          <Grid container alignItems="center" spacing={2}>
+            <Grid item>
+              <img
+                style={{ height: '40px', width: '40px', borderRadius: '5px' }}
+                src={row[0].icon}
+                alt=""
+              />
+            </Grid>
+            <Grid item>{row[0].name}</Grid>
+          </Grid>
+        </TableCellWithoutBorder>
         <TableCellWithoutBorder>{row.length}</TableCellWithoutBorder>
         <TableCellWithoutBorder>
-          {row[0].buyout / row[0].quantity}
+          <ShowCurrency amount={row[0].buyout / row[0].quantity} />
         </TableCellWithoutBorder>
         <TableCellWithoutBorder>Not done</TableCellWithoutBorder>
       </TableRowWithBorder>
@@ -109,10 +122,14 @@ const Row = ({ row }) => {
                     >
                       {item.name}
                     </StyledTableCell>
-                    <StyledTableCell>{item.bid}</StyledTableCell>
-                    <StyledTableCell>{item.buyout}</StyledTableCell>
                     <StyledTableCell>
-                      {item.buyout / item.quantity}
+                      <ShowCurrency amount={item.bid} />
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      <ShowCurrency amount={item.buyout} />
+                    </StyledTableCell>
+                    <StyledTableCell>
+                      <ShowCurrency amount={item.buyout / item.quantity} />
                     </StyledTableCell>
                     <StyledTableCell>{item.quantity}</StyledTableCell>
                     <StyledTableCell>{item.time_left}</StyledTableCell>
@@ -140,7 +157,7 @@ const MainDataTable = ({ ahData }) => {
                   ID
                 </HeaderCell>
                 <HeaderCell sx={{ borderRight: '5px solid #082032' }}>
-                  Name
+                  Item
                 </HeaderCell>
                 <HeaderCell sx={{ borderRight: '5px solid #082032' }}>
                   Num of listings
