@@ -7,7 +7,11 @@ import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Box } from '@mui/material';
+import Box from '@mui/material/Box';
+import ButtonGroup from '@mui/material/ButtonGroup';
+
+import LoginButton from './LoginButton';
+import RegisterButton from './RegisterButton';
 
 const drawerWidth = 240;
 
@@ -107,15 +111,21 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
           <Typography variant="h6" noWrap component="div">
             Ana | Auction
           </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase
-              placeholder="Search..."
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </Search>
+          <Box sx={{ display: 'flex' }}>
+            <Search sx={{ marginRight: '1rem' }}>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="Search..."
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
+            <ButtonGroup variant="contained">
+              <LoginButton />
+              <RegisterButton />
+            </ButtonGroup>
+          </Box>
         </Box>
       </Toolbar>
     </AppBar>

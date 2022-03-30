@@ -22,6 +22,12 @@ const App = () => {
       secondary: {
         main: '#99AEC5',
       },
+      error: {
+        main: '#FF8070',
+      },
+      warning: {
+        main: '#F0C6A6',
+      },
       text: {
         primary: '#BEC5CC',
       },
