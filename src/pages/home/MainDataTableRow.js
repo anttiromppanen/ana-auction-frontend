@@ -14,7 +14,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 import TableRowWithBorder from './TableRowWithBorder';
 import HeaderCell from './HeaderCell';
-import ShowCurrency from './ShowCurrency';
+import ShowCurrency from '../../components/ShowCurrency';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   border: 0,

@@ -1,11 +1,13 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { setAuctionData } from './reducers/ahDataReducer';
 import { getProfessions } from './reducers/professionsReducer';
 import { showAllCraftables } from './reducers/craftablesDataReducer';
 import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
-import MainContent from './components/MainContent';
+import Home from './pages/home';
+import Login from './pages/login';
 import AppBarRight from './components/AppBarRight';
 import SideDrawer from './components/SideDrawer';
 
@@ -61,24 +63,29 @@ const App = () => {
     dispatch(getProfessions());
     dispatch(setAuctionData());
   }, [dispatch]);
-
+  
   return (
-    <ThemeProvider theme={darkTheme}>
-      <Box
-        sx={{
-          display: 'flex',
-        }}
-      >
-        <CssBaseline />
-        <AppBarRight open={open} handleDrawerOpen={handleDrawerOpen} />
-        <SideDrawer
-          theme={darkTheme}
-          open={open}
-          handleDrawerClose={handleDrawerClose}
-        />
-        <MainContent />
-      </Box>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={darkTheme}>
+        <Box
+          sx={{
+            display: 'flex',
+          }}
+        >
+          <CssBaseline />
+          <AppBarRight open={open} handleDrawerOpen={handleDrawerOpen} />
+          <SideDrawer
+            theme={darkTheme}
+            open={open}
+            handleDrawerClose={handleDrawerClose}
+          />
+          <Routes>
+            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Box>
+      </ThemeProvider>
+    </Router>
   );
 };
 
