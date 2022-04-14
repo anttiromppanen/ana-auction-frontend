@@ -39,6 +39,11 @@ const App = () => {
       },
     },
     typography: {
+      h1: {
+        color: '#FFF',
+        fontWeight: 'bold',
+        margin: '2rem 0',
+      },
       h3: {
         color: '#00C6B6',
         margin: '2rem 0',
@@ -61,7 +66,9 @@ const App = () => {
   useEffect(() => {
     dispatch(showAllCraftables());
     dispatch(getProfessions());
-    dispatch(setAuctionData());
+    if (!window.sessionStorage.getItem('sortedAhData')) {
+      dispatch(setAuctionData());
+    }
   }, [dispatch]);
 
   return (
