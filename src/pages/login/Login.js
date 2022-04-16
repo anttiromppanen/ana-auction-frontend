@@ -6,6 +6,10 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import InputAdornment from '@mui/material/InputAdornment';
+import PersonIcon from '@mui/icons-material/Person';
+import LockIcon from '@mui/icons-material/Lock';
 
 import DrawerHeader from '../../components/DrawerHeader';
 import { ReactComponent as Illustration } from '../../img/login_img_3.svg';
@@ -20,7 +24,14 @@ const Login = () => {
     >
       <DrawerHeader />
       <Grid justifyContent="center" alignItems="center" container>
-        <Grid item container direction="column" alignItems="center" xs={6}>
+        <Grid
+          item
+          container
+          direction="column"
+          alignItems="center"
+          xs={6}
+          spacing={1}
+        >
           <Grid item xs={4}>
             <Typography variant="h1" gutterBottom>
               LOG IN
@@ -31,6 +42,13 @@ const Login = () => {
               label="Username"
               id="outlined-start-adornment"
               sx={{ m: 1, width: '640px' }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <PersonIcon />
+                  </InputAdornment>
+                ),
+              }}
             />
           </Grid>
           <Grid item xs={4}>
@@ -38,12 +56,38 @@ const Login = () => {
               <InputLabel htmlFor="outlined-adornment-password">
                 Password
               </InputLabel>
-              <OutlinedInput label="Password" />
+              <OutlinedInput
+                label="Password"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <LockIcon />
+                  </InputAdornment>
+                }
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={4}>
+            <FormControl sx={{ m: 1, width: '640px' }} variant="outlined">
+              <InputLabel htmlFor="outlined-adornment-password">
+                Enter password again
+              </InputLabel>
+              <OutlinedInput
+                label="Enter password again"
+                startAdornment={
+                  <InputAdornment position="start">
+                    <LockIcon />
+                  </InputAdornment>
+                }
+              />
             </FormControl>
           </Grid>
           <Grid item xs={4}>
             <Button
-              sx={{ m: 1 }}
+              sx={{
+                m: 1,
+                p: 1.5,
+                width: '640px',
+              }}
               variant="contained"
               color="primary"
               type="submit"
@@ -55,10 +99,6 @@ const Login = () => {
         </Grid>
         <Grid
           item
-          container
-          direction="column"
-          alignItems="center"
-          justifyContent="center"
           sx={{
             backgroundImage: `url(${bg_2})`,
             backgroundRepeat: 'no-repeat',
@@ -68,23 +108,40 @@ const Login = () => {
           }}
           xs={6}
         >
-          <Typography sx={{ marginBottom: 0 }} variant="h1" gutterBottom>
-            Don't be a loser...
-          </Typography>
-          <Typography
+          <Stack
             sx={{
-              m: 0,
-              paddingLeft: 4,
-              paddingRight: 4,
-              color: '#F0C6A6',
-              backgroundColor: '#082032',
+              height: '100vh',
+              justifyContent: 'center',
+              alignItems: 'center',
             }}
-            variant="h1"
-            gutterBottom
           >
-            LOG IN
-          </Typography>
-          <Illustration style={{ width: '80%' }} />
+            <Typography
+              sx={{ marginBottom: 0, fontFamily: ['Lora', 'serif'] }}
+              variant="h1"
+              gutterBottom
+            >
+              Don't be a loser,
+            </Typography>
+            <Typography
+              sx={{
+                m: 0,
+                paddingLeft: 4,
+                paddingRight: 4,
+                color: '#F0C6A6',
+                backgroundColor: '#082032',
+              }}
+              variant="h1"
+              gutterBottom
+            >
+              LOG IN
+            </Typography>
+            <Illustration
+              style={{
+                width: '60%',
+                height: '60%',
+              }}
+            />
+          </Stack>
         </Grid>
       </Grid>
     </Box>
