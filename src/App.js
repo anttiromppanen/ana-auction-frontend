@@ -41,7 +41,10 @@ const App = () => {
     typography: {
       h1: {
         color: '#FFF',
-        fontWeight: 'bold',
+        margin: '2rem 0',
+      },
+      h2: {
+        color: '#FFF',
         margin: '2rem 0',
       },
       h3: {

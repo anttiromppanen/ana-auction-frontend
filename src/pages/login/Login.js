@@ -41,7 +41,7 @@ const Login = () => {
             <TextField
               label="Username"
               id="outlined-start-adornment"
-              sx={{ m: 1, width: '640px' }}
+              sx={{ m: 1, width: '480px' }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -52,7 +52,7 @@ const Login = () => {
             />
           </Grid>
           <Grid item xs={4}>
-            <FormControl sx={{ m: 1, width: '640px' }} variant="outlined">
+            <FormControl sx={{ m: 1, width: '480px' }} variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password">
                 Password
               </InputLabel>
@@ -67,7 +67,7 @@ const Login = () => {
             </FormControl>
           </Grid>
           <Grid item xs={4}>
-            <FormControl sx={{ m: 1, width: '640px' }} variant="outlined">
+            <FormControl sx={{ m: 1, width: '480px' }} variant="outlined">
               <InputLabel htmlFor="outlined-adornment-password">
                 Enter password again
               </InputLabel>
@@ -86,7 +86,7 @@ const Login = () => {
               sx={{
                 m: 1,
                 p: 1.5,
-                width: '640px',
+                width: '480px',
               }}
               variant="contained"
               color="primary"
@@ -103,6 +103,7 @@ const Login = () => {
             backgroundImage: `url(${bg_2})`,
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'right',
+            borderRadius: '0 0 0 0.5rem',
             height: '100vh',
             marginTop: -10,
           }}
@@ -113,11 +114,12 @@ const Login = () => {
               height: '100vh',
               justifyContent: 'center',
               alignItems: 'center',
+              marginTop: 8
             }}
           >
             <Typography
               sx={{ marginBottom: 0, fontFamily: ['Lora', 'serif'] }}
-              variant="h1"
+              variant="h2"
               gutterBottom
             >
               Don't be a loser,
@@ -128,9 +130,11 @@ const Login = () => {
                 paddingLeft: 4,
                 paddingRight: 4,
                 color: '#F0C6A6',
-                backgroundColor: '#082032',
+                backgroundColor: 'rgba(8, 32, 50, 0.7)',
+                borderRadius: '0.5rem',
+                fontWeight: 'bold',
               }}
-              variant="h1"
+              variant="h2"
               gutterBottom
             >
               LOG IN
