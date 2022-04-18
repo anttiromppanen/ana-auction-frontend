@@ -13,6 +13,7 @@ const ahDataReducer = (state = [], action) => {
 export const setAuctionData = () => {
   return async (dispatch) => {
     const ahData = await ahDataService.getAll();
+
     dispatch({
       type: 'SET_AUCTION_DATA',
       data: ahData.data,
