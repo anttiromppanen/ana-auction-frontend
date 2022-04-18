@@ -1,4 +1,5 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,8 +11,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
-import LoginButton from './LoginButton';
-import RegisterButton from './RegisterButton';
+import MenuButton from './/MenuButton';
 
 const drawerWidth = 240;
 
@@ -76,6 +76,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const AppBarRight = ({ open, handleDrawerOpen }) => {
+  const { pathname } = useLocation();
+
   return (
     <AppBar
       position="fixed"
@@ -86,18 +88,20 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
       }}
     >
       <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{
-            marginRight: '36px',
-            ...(open && { display: 'none' }),
-          }}
-        >
-          <MenuIcon />
-        </IconButton>
+        {pathname === '/' && (
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: '36px',
+              ...(open && { display: 'none' }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+        )}
         <Box
           sx={{
             p: 0,
@@ -108,9 +112,7 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
             alignItems: 'center',
           }}
         >
-          <Typography variant="h6" noWrap component="div">
-            Ana | Auction
-          </Typography>
+          <MenuButton text="Ana | Auction" urlTo="/" />
           <Box sx={{ display: 'flex' }}>
             <Search sx={{ marginRight: '1rem' }}>
               <SearchIconWrapper>
@@ -122,8 +124,8 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
               />
             </Search>
             <ButtonGroup variant="contained">
-              <LoginButton />
-              <RegisterButton />
+              <MenuButton text="Log in" urlTo="/login" />
+              <MenuButton text="Register" color="error" urlTo="/register" />
             </ButtonGroup>
           </Box>
         </Box>

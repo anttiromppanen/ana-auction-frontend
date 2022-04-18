@@ -135,17 +135,20 @@ const ShowAhData = () => {
 
   useEffect(() => {
     setTimeFromUpdate(showLastUpdated());
-  }, [ahData]);
 
-  setInterval(() => {
-    setTimeFromUpdate(showLastUpdated());
-  }, 60 * 1000);
+    const timer = setInterval(() => {
+      setTimeFromUpdate(showLastUpdated());
+    }, 60 * 1000);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   const handleUpdate = () => {
     window.sessionStorage.clear();
     window.location.reload();
   };
-
   return (
     <Box sx={{ marginLeft: '2rem', marginRight: '2rem' }}>
       <Typography variant="h3">{activeProfession.toUpperCase()}</Typography>

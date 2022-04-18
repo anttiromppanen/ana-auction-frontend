@@ -23,7 +23,7 @@ const Login = () => {
       }}
     >
       <DrawerHeader />
-      <Grid justifyContent="center" alignItems="center" container>
+      <Grid justifyContent="center" alignItems="center" container height="100%">
         <Grid
           item
           container
@@ -67,21 +67,6 @@ const Login = () => {
             </FormControl>
           </Grid>
           <Grid item xs={4}>
-            <FormControl sx={{ m: 1, width: '480px' }} variant="outlined">
-              <InputLabel htmlFor="outlined-adornment-password">
-                Enter password again
-              </InputLabel>
-              <OutlinedInput
-                label="Enter password again"
-                startAdornment={
-                  <InputAdornment position="start">
-                    <LockIcon />
-                  </InputAdornment>
-                }
-              />
-            </FormControl>
-          </Grid>
-          <Grid item xs={4}>
             <Button
               sx={{
                 m: 1,
@@ -114,7 +99,7 @@ const Login = () => {
               height: '100vh',
               justifyContent: 'center',
               alignItems: 'center',
-              marginTop: 8
+              marginTop: 8,
             }}
           >
             <Typography

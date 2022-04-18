@@ -8,6 +8,7 @@ import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
 import Home from './pages/home';
 import Login from './pages/login';
+import Register from './pages/register';
 import AppBarRight from './components/AppBarRight';
 import SideDrawer from './components/SideDrawer';
 
@@ -91,6 +92,7 @@ const App = () => {
           />
           <Routes>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </Box>

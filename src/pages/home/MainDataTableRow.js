@@ -4,8 +4,8 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
-import Grid from '@mui/material/Grid'
-import Table from '@mui/material/Table'
+import Grid from '@mui/material/Grid';
+import Table from '@mui/material/Table';
 import TableHead from '@mui/material/TableHead';
 import TableBody from '@mui/material/TableBody';
 import { styled, tableCellClasses } from '@mui/material';

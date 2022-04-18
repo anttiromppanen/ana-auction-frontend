@@ -1,6 +1,6 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -93,6 +93,9 @@ const Drawer = styled(MuiDrawer, {
 const SideDrawer = ({ theme, open, handleDrawerClose }) => {
   const dispatch = useDispatch();
   const professions = useSelector((state) => state.professions);
+  const { pathname } = useLocation();
+
+  if (pathname !== '/') return null;
 
   return (
     <Drawer variant="permanent" open={open}>
