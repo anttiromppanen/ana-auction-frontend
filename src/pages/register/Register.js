@@ -6,13 +6,11 @@ import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
 import InputAdornment from '@mui/material/InputAdornment';
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
 
 import DrawerHeader from '../../components/DrawerHeader';
-import { ReactComponent as Illustration } from '../../img/login_img_3.svg';
 import bg_2 from '../../img/register_bg.jpg';
 
 const Login = () => {
