@@ -147,8 +147,8 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
                   startIcon={<PersonIcon />}
                 />
                 <MenuButton
-                  text="Register"
                   color="warning"
+                  text="Register"
                   urlTo="/register"
                   startIcon={<EventNoteIcon />}
                 />
@@ -156,7 +156,7 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
             ) : (
               <ButtonGroup variant="contained">
                 <Button color="primary">
-                  <Typography variant="button">Hello, admin</Typography>
+                  <Typography variant="button">{`Hello, ${user.username}`}</Typography>
                 </Button>
                 <Button
                   color="error"

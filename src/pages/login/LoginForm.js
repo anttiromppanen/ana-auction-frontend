@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import {
   Grid,
   TextField,
@@ -8,41 +9,48 @@ import {
   InputLabel,
   OutlinedInput,
   FormControl,
-  Alert,
-  Collapse,
-  IconButton,
 } from '@mui/material';
 
 import PersonIcon from '@mui/icons-material/Person';
 import LockIcon from '@mui/icons-material/Lock';
-import CloseIcon from '@mui/icons-material/Close';
 
 import { setUser } from '../../reducers/userReducer';
 import loginService from '../../services/login';
+import MessageAlert from '../../components/MessageAlert';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
   const [errorMessage, setErrorMessage] = React.useState(null);
+  const [successMessage, setSuccessMessage] = React.useState(null);
   const [open, setOpen] = React.useState(true);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setOpen(true);
 
     try {
       const loginUser = await loginService.login({
         username,
         password,
       });
+
       setUser(loginUser);
       setUsername('');
       setPassword('');
       window.localStorage.setItem('user', JSON.stringify(loginUser));
       dispatch(setUser(loginUser));
+      setSuccessMessage(`Welcome ${loginUser.name}, redirecting...`);
+
+      setTimeout(() => {
+        setSuccessMessage(null);
+        navigate('/');
+      }, 5000);
     } catch (error) {
       setErrorMessage(error.response.data.error);
-      setOpen(true);
 
       setTimeout(() => {
         setErrorMessage(null);
@@ -51,28 +59,24 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} autoComplete="off">
+      {successMessage && (
+        <Grid item xs={12}>
+          <MessageAlert
+            message={successMessage}
+            open={open}
+            setOpen={setOpen}
+          />
+        </Grid>
+      )}
       {errorMessage && (
         <Grid item xs={12}>
-          <Collapse in={open}>
-            <Alert
-              action={
-                <IconButton
-                  aria-label="close"
-                  color="inherit"
-                  size="small"
-                  onClick={() => setOpen(false)}
-                >
-                  <CloseIcon fontSize="inherit" />
-                </IconButton>
-              }
-              sx={{ m: 1, marginTop: 0 }}
-              variant="filled"
-              severity="error"
-            >
-              {errorMessage}
-            </Alert>
-          </Collapse>
+          <MessageAlert
+            message={errorMessage}
+            open={open}
+            setOpen={setOpen}
+            error
+          />
         </Grid>
       )}
       <Grid item xs={12}>
@@ -98,6 +102,7 @@ const LoginForm = () => {
           </InputLabel>
           <OutlinedInput
             label="Password"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             startAdornment={
@@ -119,6 +124,7 @@ const LoginForm = () => {
           color="primary"
           type="submit"
           size="large"
+          disabled={user || !username || !password ? true : false}
         >
           LOG IN
         </Button>

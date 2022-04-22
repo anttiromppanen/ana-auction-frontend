@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { setAuctionData } from './reducers/ahDataReducer';
 import { getProfessions } from './reducers/professionsReducer';
@@ -15,7 +15,6 @@ import SideDrawer from './components/SideDrawer';
 
 const App = () => {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user);
   const [open, setOpen] = React.useState(false);
 
   const darkTheme = createTheme({
