@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { setAuctionData } from './reducers/ahDataReducer';
 import { getProfessions } from './reducers/professionsReducer';
 import { showAllCraftables } from './reducers/craftablesDataReducer';
+import { setUser } from './reducers/userReducer';
 import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
 import Home from './pages/home';
@@ -14,6 +15,7 @@ import SideDrawer from './components/SideDrawer';
 
 const App = () => {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
   const [open, setOpen] = React.useState(false);
 
   const darkTheme = createTheme({
@@ -72,6 +74,13 @@ const App = () => {
     dispatch(getProfessions());
     if (!window.sessionStorage.getItem('sortedAhData')) {
       dispatch(setAuctionData());
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    const loggedUser = window.localStorage.getItem('user');
+    if (loggedUser) {
+      dispatch(setUser(JSON.parse(loggedUser)));
     }
   }, [dispatch]);
 

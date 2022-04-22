@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
@@ -6,12 +7,20 @@ import Toolbar from '@mui/material/Toolbar';
 import MuiAppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
 import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
-import MenuIcon from '@mui/icons-material/Menu';
 import Box from '@mui/material/Box';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import Button from '@mui/material/Button';
+
+import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import PersonIcon from '@mui/icons-material/Person';
+import EventNoteIcon from '@mui/icons-material/EventNote';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 import MenuButton from './/MenuButton';
+
+import { setUser } from '../reducers/userReducer';
+import isAdmin from '../utils/isAdmin';
 
 const drawerWidth = 240;
 
@@ -76,7 +85,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 const AppBarRight = ({ open, handleDrawerOpen }) => {
+  const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const user = useSelector((state) => state.user);
+
+  const handleLogout = () => {
+    window.localStorage.removeItem('user');
+    dispatch(setUser(null));
+  };
 
   return (
     <AppBar
@@ -123,10 +139,34 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
                 inputProps={{ 'aria-label': 'search' }}
               />
             </Search>
-            <ButtonGroup variant="contained">
-              <MenuButton text="Log in" urlTo="/login" />
-              <MenuButton text="Register" color="error" urlTo="/register" />
-            </ButtonGroup>
+            {!user ? (
+              <ButtonGroup variant="contained">
+                <MenuButton
+                  text="Log in"
+                  urlTo="/login"
+                  startIcon={<PersonIcon />}
+                />
+                <MenuButton
+                  text="Register"
+                  color="warning"
+                  urlTo="/register"
+                  startIcon={<EventNoteIcon />}
+                />
+              </ButtonGroup>
+            ) : (
+              <ButtonGroup variant="contained">
+                <Button color="primary">
+                  <Typography variant="button">Hello, admin</Typography>
+                </Button>
+                <Button
+                  color="error"
+                  onClick={handleLogout}
+                  endIcon={<LogoutIcon />}
+                >
+                  <Typography variant="button">Logout</Typography>
+                </Button>
+              </ButtonGroup>
+            )}
           </Box>
         </Box>
       </Toolbar>
