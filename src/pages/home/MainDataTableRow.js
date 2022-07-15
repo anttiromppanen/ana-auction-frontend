@@ -11,10 +11,12 @@ import TableBody from '@mui/material/TableBody';
 import { styled, tableCellClasses } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 import TableRowWithBorder from './TableRowWithBorder';
 import HeaderCell from './HeaderCell';
 import ShowCurrency from '../../components/ShowCurrency';
+import AddToFavoritesStar from './AddToFavoritesStar';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   border: 0,
@@ -46,6 +48,12 @@ const TableCellWithoutBorder = styled(TableCell)(({ theme }) => ({
 
 const MainDataTableRow = ({ row }) => {
   const [open, setOpen] = React.useState(false);
+  const [starClicked, setStarClicked] = React.useState(false);
+
+  const handleStarClick = (e) => {
+    setStarClicked(!starClicked);
+    e.stopPropagation();
+  };
 
   return (
     <React.Fragment>
@@ -79,6 +87,9 @@ const MainDataTableRow = ({ row }) => {
           <ShowCurrency amount={row[0].buyout / row[0].quantity} />
         </TableCellWithoutBorder>
         <TableCellWithoutBorder>Not done</TableCellWithoutBorder>
+        <TableCellWithoutBorder>
+          <AddToFavoritesStar />
+        </TableCellWithoutBorder>
       </TableRowWithBorder>
       <TableRow>
         <TableCellWithoutBorder style={{ padding: 0 }} colSpan={6}>

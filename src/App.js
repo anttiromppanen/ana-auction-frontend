@@ -39,6 +39,9 @@ const App = () => {
         paper: '#082032',
         default: '#082032',
       },
+      starColor: {
+        main: '#F9F871',
+      },
     },
     typography: {
       h1: {
