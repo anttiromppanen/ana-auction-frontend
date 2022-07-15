@@ -15,6 +15,13 @@ const craftablesDataReducer = (state = [], action) => {
       return action.craftingData;
     case 'SHOW_ALL':
       return action.allCraftables;
+    case 'SHOW_FAVORITES':
+      return action.favorites;
+    case 'REMOVE_FROM_FAVORITES':
+      const newFavorites = state.favorites.filter(
+        (item) => item._id !== action.itemID
+      );
+      return { ...state, favorites: newFavorites };
     default:
       return state;
   }
@@ -61,6 +68,20 @@ export const showAllCraftables = () => {
       type: 'SHOW_ALL',
       allCraftables,
     });
+  };
+};
+
+export const showFavorites = (favorites) => {
+  return {
+    type: 'SHOW_FAVORITES',
+    favorites,
+  };
+};
+
+export const removeFromFavorites = (craftableID) => {
+  return {
+    type: 'REMOVE_FROM_FAVORITES',
+    craftableID,
   };
 };
 

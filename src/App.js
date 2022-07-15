@@ -104,6 +104,9 @@ const App = () => {
           <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/favorites" element={<Home />} />
+            <Route path="/profession/alchemy" element={<Home />} />
+            <Route path="/profession/tailoring" element={<Home />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </Box>

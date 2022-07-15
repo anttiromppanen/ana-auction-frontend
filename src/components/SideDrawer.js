@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import { styled } from '@mui/material/styles';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
@@ -15,10 +15,12 @@ import IconButton from '@mui/material/IconButton';
 import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 import {
   filterByProfessionName,
   showAllCraftables,
+  showFavorites,
 } from '../reducers/craftablesDataReducer';
 import { changeActiveProfession } from '../reducers/activeProfessionReducer';
 
@@ -93,9 +95,10 @@ const Drawer = styled(MuiDrawer, {
 const SideDrawer = ({ theme, open, handleDrawerClose }) => {
   const dispatch = useDispatch();
   const professions = useSelector((state) => state.professions);
+  const user = useSelector((state) => state.user);
   const { pathname } = useLocation();
 
-  if (pathname !== '/') return null;
+  if (pathname === '/login' || pathname === '/register') return null;
 
   return (
     <Drawer variant="permanent" open={open}>
@@ -111,6 +114,8 @@ const SideDrawer = ({ theme, open, handleDrawerClose }) => {
       <Divider />
       <List>
         <ListItemButton
+          component={Link}
+          to="/"
           onClick={() => {
             dispatch(showAllCraftables());
             dispatch(changeActiveProfession('All items'));
@@ -124,6 +129,8 @@ const SideDrawer = ({ theme, open, handleDrawerClose }) => {
         {professions &&
           professions.map((x) => (
             <ListItemButton
+              component={Link}
+              to={`/profession/${x}`.toLowerCase()}
               key={x}
               onClick={() => {
                 dispatch(filterByProfessionName(x));
@@ -134,6 +141,20 @@ const SideDrawer = ({ theme, open, handleDrawerClose }) => {
               <ListItemText>{x}</ListItemText>
             </ListItemButton>
           ))}
+        <Divider />
+        <ListItemButton
+          component={Link}
+          to="/favorites"
+          onClick={() => {
+            dispatch(showFavorites(user && user.favorites));
+            dispatch(changeActiveProfession('Favorites'));
+          }}
+        >
+          <ListItemIcon>
+            <StarBorderIcon fontSize="large" />
+          </ListItemIcon>
+          <ListItemText>Favorites</ListItemText>
+        </ListItemButton>
       </List>
     </Drawer>
   );

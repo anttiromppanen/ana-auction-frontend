@@ -17,9 +17,11 @@ import PersonIcon from '@mui/icons-material/Person';
 import EventNoteIcon from '@mui/icons-material/EventNote';
 import LogoutIcon from '@mui/icons-material/Logout';
 
-import MenuButton from './/MenuButton';
+import MenuButton from './MenuButton';
 
 import { setUser } from '../reducers/userReducer';
+import { changeActiveProfession } from '../reducers/activeProfessionReducer';
+import { showAllCraftables } from '../reducers/craftablesDataReducer';
 import isAdmin from '../utils/isAdmin';
 
 const drawerWidth = 240;
@@ -94,6 +96,11 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
     dispatch(setUser(null));
   };
 
+  const handleLogoClick = () => {
+    dispatch(changeActiveProfession('All items'));
+    dispatch(showAllCraftables());
+  };
+
   return (
     <AppBar
       position="fixed"
@@ -104,7 +111,7 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
       }}
     >
       <Toolbar>
-        {pathname === '/' && (
+        {(pathname !== '/login' || pathname !== 'register') && (
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -128,7 +135,11 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
             alignItems: 'center',
           }}
         >
-          <MenuButton text="Ana | Auction" urlTo="/" />
+          <MenuButton
+            text="Ana | Auction"
+            urlTo="/"
+            handleClick={handleLogoClick}
+          />
           <Box sx={{ display: 'flex' }}>
             <Search sx={{ marginRight: '1rem' }}>
               <SearchIconWrapper>
