@@ -13,7 +13,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import DriveFileRenameOutlineIcon from '@mui/icons-material/DriveFileRenameOutline';
 
 import MessageAlert from '../../components/MessageAlert';
-import userService from '../../services/user';
+import { createUser } from '../../services/user';
 
 const RegisterForm = () => {
   const [name, setName] = React.useState('');
@@ -42,7 +42,7 @@ const RegisterForm = () => {
     setOpen(true);
 
     try {
-      await userService.createUser({
+      await createUser({
         name,
         username,
         password,

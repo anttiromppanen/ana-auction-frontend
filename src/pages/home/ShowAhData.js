@@ -43,7 +43,7 @@ const showLastUpdated = () => {
 
 const addFieldsToCraftables = (craftablesData, craftablesItems) => {
   craftablesData.forEach((x) =>
-    craftablesItems.set(x.item_id, { name: x.name, icon: x.icon || '' })
+    craftablesItems.set(x._id, { name: x.name, icon: x.icon || '' })
   );
 };
 
@@ -79,7 +79,7 @@ const sortCraftablesByBuyout = (craftablesSortedByItemValues) =>
 const filterSessionData = (craftablesData) => {
   let sessionAhData = JSON.parse(window.sessionStorage.getItem('sortedAhData'));
 
-  const craftablesItemIDs = craftablesData.map((x) => x.item_id);
+  const craftablesItemIDs = craftablesData.map((x) => x._id);
   let filteredData = sessionAhData.map((x) =>
     x.filter((y) => craftablesItemIDs.includes(y.item.id))
   );

@@ -38,7 +38,6 @@ const LoginForm = () => {
         password,
       });
 
-      setUser(loginUser);
       setUsername('');
       setPassword('');
       window.localStorage.setItem('user', JSON.stringify(loginUser));

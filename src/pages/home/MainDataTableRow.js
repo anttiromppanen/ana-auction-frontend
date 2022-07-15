@@ -11,7 +11,6 @@ import TableBody from '@mui/material/TableBody';
 import { styled, tableCellClasses } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 import TableRowWithBorder from './TableRowWithBorder';
 import HeaderCell from './HeaderCell';
@@ -48,12 +47,6 @@ const TableCellWithoutBorder = styled(TableCell)(({ theme }) => ({
 
 const MainDataTableRow = ({ row }) => {
   const [open, setOpen] = React.useState(false);
-  const [starClicked, setStarClicked] = React.useState(false);
-
-  const handleStarClick = (e) => {
-    setStarClicked(!starClicked);
-    e.stopPropagation();
-  };
 
   return (
     <React.Fragment>
@@ -88,7 +81,7 @@ const MainDataTableRow = ({ row }) => {
         </TableCellWithoutBorder>
         <TableCellWithoutBorder>Not done</TableCellWithoutBorder>
         <TableCellWithoutBorder>
-          <AddToFavoritesStar />
+          <AddToFavoritesStar itemID={row[0].item.id} />
         </TableCellWithoutBorder>
       </TableRowWithBorder>
       <TableRow>

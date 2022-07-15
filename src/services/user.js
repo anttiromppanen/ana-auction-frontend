@@ -6,4 +6,22 @@ const createUser = async (user) => {
   return response.data;
 };
 
-export default { createUser };
+const addFavorite = async (username, itemID) => {
+  const response = await axios.post(`${baseUrl}/add-favorite`, {
+    username,
+    itemID,
+  });
+
+  return response.data;
+};
+
+const removeFavorite = async (username, itemID) => {
+  const response = await axios.post(`${baseUrl}/remove-favorite`, {
+    username,
+    itemID,
+  });
+
+  return response.data;
+};
+
+export { createUser, addFavorite, removeFavorite };
