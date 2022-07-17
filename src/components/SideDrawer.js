@@ -142,19 +142,21 @@ const SideDrawer = ({ theme, open, handleDrawerClose }) => {
             </ListItemButton>
           ))}
         <Divider />
-        <ListItemButton
-          component={Link}
-          to="/favorites"
-          onClick={() => {
-            dispatch(showFavorites(user && user.favorites));
-            dispatch(changeActiveProfession('Favorites'));
-          }}
-        >
-          <ListItemIcon>
-            <StarBorderIcon fontSize="large" />
-          </ListItemIcon>
-          <ListItemText>Favorites</ListItemText>
-        </ListItemButton>
+        {user && (
+          <ListItemButton
+            component={Link}
+            to="/favorites"
+            onClick={() => {
+              dispatch(showFavorites(user && user.favorites));
+              dispatch(changeActiveProfession('Favorites'));
+            }}
+          >
+            <ListItemIcon>
+              <StarBorderIcon fontSize="large" />
+            </ListItemIcon>
+            <ListItemText>Favorites</ListItemText>
+          </ListItemButton>
+        )}
       </List>
     </Drawer>
   );

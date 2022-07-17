@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { styled, alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import Toolbar from '@mui/material/Toolbar';
@@ -89,11 +89,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const AppBarRight = ({ open, handleDrawerOpen }) => {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
   const handleLogout = () => {
     window.localStorage.removeItem('user');
     dispatch(setUser(null));
+    navigate('/');
+    dispatch(showAllCraftables());
+    dispatch(changeActiveProfession('All items'));
   };
 
   const handleLogoClick = () => {
