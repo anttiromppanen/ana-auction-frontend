@@ -81,6 +81,7 @@ const App = () => {
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem('user');
+
     if (loggedUser) {
       dispatch(setUser(JSON.parse(loggedUser)));
     }

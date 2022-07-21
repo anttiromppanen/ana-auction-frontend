@@ -7,7 +7,7 @@ import StarIcon from '@mui/icons-material/Star';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 
 import { addFavorite, removeFavorite } from '../../services/user';
-import { updateFavorites } from '../../reducers/userReducer';
+import { updateFavorites, setUser } from '../../reducers/userReducer';
 import { showFavorites } from '../../reducers/craftablesDataReducer';
 
 const AddToFavoritesStar = ({ itemID }) => {
@@ -23,15 +23,20 @@ const AddToFavoritesStar = ({ itemID }) => {
     e.stopPropagation();
     setStarClicked(!starClicked);
 
-    const { favoriteCraftables } = starClicked
+    const newUser = starClicked
       ? await removeFavorite(user.username, itemID, pathname)
       : await addFavorite(user.username, itemID);
 
     if (pathname === '/favorites') {
-      dispatch(showFavorites(favoriteCraftables));
+      dispatch(showFavorites(newUser.favoriteCraftables));
     }
 
-    dispatch(updateFavorites(favoriteCraftables));
+    dispatch(updateFavorites(newUser.favoriteCraftables));
+
+    const response = dispatch(
+      setUser({ ...user, favorites: newUser.favoriteCraftables })
+    );
+    window.localStorage.setItem('user', JSON.stringify(response.user));
   };
 
   return (

@@ -11,7 +11,7 @@ const addFavorite = async (username, itemID) => {
     username,
     itemID,
   });
-
+  console.log('test', response.data);
   return response.data;
 };
 

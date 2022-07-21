@@ -57,7 +57,7 @@ const MainDataTableRow = ({ row }) => {
   const materialsCreatedFrom = craftablesData.find(
     (x) => Number(x._id) === Number(row[0].item.id)
   );
-  console.log('craftables data', craftablesData);
+  //console.log('craftables data', craftablesData);
   const profitabilityResult = profitabilityCalculation(
     row[0].buyout / row[0].quantity,
     craftablesData,
