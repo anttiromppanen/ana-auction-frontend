@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Collapse from '@mui/material/Collapse';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
@@ -16,6 +17,10 @@ import TableRowWithBorder from './TableRowWithBorder';
 import HeaderCell from './HeaderCell';
 import ShowCurrency from '../../components/ShowCurrency';
 import AddToFavoritesStar from './AddToFavoritesStar';
+import ShowProfit from './ShowProfit';
+
+import profitabilityCalculation from '../../utils/profitabilityCalculation';
+import currencyFormatting from '../../utils/currencyFormatting';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   border: 0,
@@ -41,12 +46,24 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 const TableCellWithoutBorder = styled(TableCell)(({ theme }) => ({
   paddingTop: '1.5rem',
   paddingBottom: '1.5rem',
+  paddingLeft: '1.2rem',
   fontSize: 16,
   border: 0,
 }));
 
 const MainDataTableRow = ({ row }) => {
   const [open, setOpen] = React.useState(false);
+  const { ahData, craftablesData } = useSelector((state) => state);
+  const materialsCreatedFrom = craftablesData.find(
+    (x) => Number(x._id) === Number(row[0].item.id)
+  );
+  console.log('craftables data', craftablesData);
+  const profitabilityResult = profitabilityCalculation(
+    row[0].buyout / row[0].quantity,
+    craftablesData,
+    ahData.auctions,
+    materialsCreatedFrom.materials_created_from
+  );
 
   return (
     <React.Fragment>
@@ -79,7 +96,9 @@ const MainDataTableRow = ({ row }) => {
         <TableCellWithoutBorder>
           <ShowCurrency amount={row[0].buyout / row[0].quantity} />
         </TableCellWithoutBorder>
-        <TableCellWithoutBorder>Not done</TableCellWithoutBorder>
+        <TableCellWithoutBorder>
+          <ShowProfit result={profitabilityResult} />
+        </TableCellWithoutBorder>
         <TableCellWithoutBorder>
           <AddToFavoritesStar itemID={row[0].item.id} />
         </TableCellWithoutBorder>

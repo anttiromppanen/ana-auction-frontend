@@ -34,7 +34,7 @@ const MainDataTable = ({ ahData }) => {
                 <HeaderCell sx={{ borderRight: '5px solid #082032' }}>
                   Lowest buyout
                 </HeaderCell>
-                <HeaderCell>Profitable to craft</HeaderCell>
+                <HeaderCell>Profit</HeaderCell>
               </TableRowWithBorder>
             </TableHead>
             <TableBody>

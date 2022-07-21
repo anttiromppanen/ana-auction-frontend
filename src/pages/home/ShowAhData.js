@@ -74,7 +74,7 @@ const ShowAhData = () => {
     window.sessionStorage.clear();
     window.location.reload();
   };
-  console.log(profitabilityCalculation(craftablesData, ahData.auctions));
+
   return (
     <Box sx={{ marginLeft: '2rem', marginRight: '2rem' }}>
       <Typography variant="h3">{activeProfession.toUpperCase()}</Typography>
