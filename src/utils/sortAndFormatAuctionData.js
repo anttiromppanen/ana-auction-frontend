@@ -1,11 +1,8 @@
-import profitabilityCalculation from './profitabilityCalculation';
-
 const addFieldsToCraftables = (craftablesData, craftablesItems) => {
   craftablesData.forEach((x) =>
     craftablesItems.set(x._id, {
       name: x.name,
       icon: x.icon || '',
-      profitableToCraft: 'yes/no',
     })
   );
 };
@@ -22,6 +19,8 @@ const addItemsToCraftablesByItem = (
   craftablesSortedByItem
 ) => {
   ahData.forEach((x) => {
+    if (x.buyout <= 0) return;
+
     const item = craftablesItems.get(x.item.id);
     if (item) {
       craftablesSortedByItem

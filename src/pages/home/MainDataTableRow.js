@@ -20,7 +20,6 @@ import AddToFavoritesStar from './AddToFavoritesStar';
 import ShowProfit from './ShowProfit';
 
 import profitabilityCalculation from '../../utils/profitabilityCalculation';
-import currencyFormatting from '../../utils/currencyFormatting';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   border: 0,
@@ -57,7 +56,7 @@ const MainDataTableRow = ({ row }) => {
   const materialsCreatedFrom = craftablesData.find(
     (x) => Number(x._id) === Number(row[0].item.id)
   );
-  //console.log('craftables data', craftablesData);
+
   const profitabilityResult = profitabilityCalculation(
     row[0].buyout / row[0].quantity,
     craftablesData,

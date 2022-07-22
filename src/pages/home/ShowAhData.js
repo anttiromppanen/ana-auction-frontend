@@ -15,7 +15,6 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 import MainDataTable from './MainDataTable';
 import renderDataLogic from '../../utils/sortAndFormatAuctionData';
-import profitabilityCalculation from '../../utils/profitabilityCalculation';
 
 const blink = keyframes`
   from { opacity: 0; }

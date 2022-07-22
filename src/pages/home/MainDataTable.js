@@ -12,6 +12,9 @@ import {
 import TableRowWithBorder from './TableRowWithBorder';
 import HeaderCell from './HeaderCell';
 import MainDataTableRow from './MainDataTableRow';
+import Tooltip from '@mui/material/Tooltip';
+
+import HelpIcon from '@mui/icons-material/Help';
 
 const MainDataTable = ({ ahData }) => {
   return (
@@ -34,7 +37,11 @@ const MainDataTable = ({ ahData }) => {
                 <HeaderCell sx={{ borderRight: '5px solid #082032' }}>
                   Lowest buyout
                 </HeaderCell>
-                <HeaderCell>Profit</HeaderCell>
+                <Tooltip title="Calculates average profit for crafting ten items">
+                  <HeaderCell>
+                    Profit <HelpIcon fontSize="small" />
+                  </HeaderCell>
+                </Tooltip>
               </TableRowWithBorder>
             </TableHead>
             <TableBody>

@@ -51,6 +51,7 @@ const averageCraftingPricePerOneItem = (items, ahData, materials) => {
 
 const profitabilityCalculation = (item, items, ahData, materials) => {
   if (!items || !ahData || !materials) return;
+
   return (
     ((item - averageCraftingPricePerOneItem(items, ahData, materials)) / item) *
     100

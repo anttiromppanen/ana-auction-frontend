@@ -74,9 +74,8 @@ const App = () => {
   useEffect(() => {
     dispatch(showAllCraftables());
     dispatch(getProfessions());
-    if (!window.sessionStorage.getItem('sortedAhData')) {
-      dispatch(setAuctionData());
-    }
+    window.sessionStorage.clear();
+    dispatch(setAuctionData());
   }, [dispatch]);
 
   useEffect(() => {
