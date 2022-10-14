@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route } from 'react-router-dom';
 import { setAuctionData } from './reducers/ahDataReducer';
 import { getProfessions } from './reducers/professionsReducer';
 import { showAllCraftables } from './reducers/craftablesDataReducer';
