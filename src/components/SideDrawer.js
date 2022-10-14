@@ -16,6 +16,7 @@ import ScienceOutlinedIcon from '@mui/icons-material/ScienceOutlined';
 import CheckroomIcon from '@mui/icons-material/Checkroom';
 import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
+import DiamondOutlinedIcon from '@mui/icons-material/DiamondOutlined';
 
 import {
   filterByProfessionName,
@@ -40,6 +41,12 @@ const menuIconSelector = (profession) => {
           <CheckroomIcon fontSize="large" />
         </ListItemIcon>
       );
+    case 'Jewelcrafting':
+      return (
+        <ListItemIcon>
+          <DiamondOutlinedIcon fontSize="large" />
+        </ListItemIcon>
+      )
     default:
       return;
   }

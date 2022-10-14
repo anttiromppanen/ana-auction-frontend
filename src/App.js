@@ -107,6 +107,7 @@ const App = () => {
             <Route path="/favorites" element={<Home />} />
             <Route path="/profession/alchemy" element={<Home />} />
             <Route path="/profession/tailoring" element={<Home />} />
+            <Route path="/profession/jewelcrafting" element={<Home />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </Box>
