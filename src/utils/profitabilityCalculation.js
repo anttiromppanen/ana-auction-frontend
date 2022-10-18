@@ -26,10 +26,11 @@ const averageCraftingPricePerOneItem = (items, ahData, materials) => {
   // average crafting cost
   const averageCraftingCosts = averageMaterialCosts(items, ahData);
   const filterByItem = {};
-
+  
   let totalAverage = 0;
 
   Object.entries(materials).forEach(([key, value]) => {
+    key === '40411' && console.log('vial true');
     filterByItem[key] = averageCraftingCosts[key];
     let amount = 0;
     let total = 0;
@@ -51,7 +52,7 @@ const averageCraftingPricePerOneItem = (items, ahData, materials) => {
 
 const profitabilityCalculation = (item, items, ahData, materials) => {
   if (!items || !ahData || !materials) return;
-
+  
   return (
     ((item - averageCraftingPricePerOneItem(items, ahData, materials)) / item) *
     100
