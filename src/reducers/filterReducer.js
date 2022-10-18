@@ -1,4 +1,4 @@
-const filterReducer = (state = 'ALL', action) => {
+const filterReducer = (state = '', action) => {
   switch (action.type) {
     case 'CHANGE_VALUE':
       return action.value;

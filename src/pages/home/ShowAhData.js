@@ -46,6 +46,7 @@ const ShowAhData = () => {
   const ahData = useSelector((state) => state.ahData);
   const activeProfession = useSelector((state) => state.activeProfession);
   const craftablesData = useSelector((state) => state.craftablesData);
+  const filterValue = useSelector((state) => state.filter);
   const [timeFromUpdate, setTimeFromUpdate] = useState('never');
   const craftablesItems = new Map();
   const craftablesSortedByItem = new Map();
@@ -57,6 +58,9 @@ const ShowAhData = () => {
     ahData
   );
 
+  const filteredData = sortedAndFormattedData
+    .filter((data) => data.find((item) => item.name.toLowerCase().includes(filterValue.toLowerCase())));
+  
   useEffect(() => {
     setTimeFromUpdate(showLastUpdated());
 
@@ -73,7 +77,7 @@ const ShowAhData = () => {
     window.sessionStorage.clear();
     window.location.reload();
   };
-
+  
   return (
     <Box sx={{ marginLeft: '2rem', marginRight: '2rem' }}>
       <Typography variant="h3">{activeProfession.toUpperCase()}</Typography>
@@ -101,7 +105,7 @@ const ShowAhData = () => {
           ) : null}
         </Stack>
       </Stack>
-      <MainDataTable ahData={sortedAndFormattedData} />
+      <MainDataTable ahData={filteredData} />
     </Box>
   );
 };

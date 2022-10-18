@@ -22,7 +22,7 @@ import MenuButton from './MenuButton';
 import { setUser } from '../reducers/userReducer';
 import { changeActiveProfession } from '../reducers/activeProfessionReducer';
 import { showAllCraftables } from '../reducers/craftablesDataReducer';
-import isAdmin from '../utils/isAdmin';
+import { changeFilterValue } from '../reducers/filterReducer';
 
 const drawerWidth = 240;
 
@@ -91,7 +91,7 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-
+  
   const handleLogout = () => {
     window.localStorage.removeItem('user');
     dispatch(setUser(null));
@@ -104,6 +104,10 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
     dispatch(changeActiveProfession('All items'));
     dispatch(showAllCraftables());
   };
+
+  const handleSearchChange = (e) => {
+    dispatch(changeFilterValue(e.target.value));
+  }
 
   return (
     <AppBar
@@ -152,6 +156,7 @@ const AppBarRight = ({ open, handleDrawerOpen }) => {
               <StyledInputBase
                 placeholder="Search..."
                 inputProps={{ 'aria-label': 'search' }}
+                onChange={(e) => handleSearchChange(e)}
               />
             </Search>
             {!user ? (

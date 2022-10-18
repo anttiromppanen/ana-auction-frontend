@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import {
   TableContainer,
   Box,
@@ -7,16 +8,22 @@ import {
   TableBody,
   Table,
   Paper,
+  Typography
 } from '@mui/material';
 
 import TableRowWithBorder from './TableRowWithBorder';
 import HeaderCell from './HeaderCell';
 import MainDataTableRow from './MainDataTableRow';
 import Tooltip from '@mui/material/Tooltip';
-
 import HelpIcon from '@mui/icons-material/Help';
 
 const MainDataTable = ({ ahData }) => {
+  const filterValue = useSelector((state) => state.filter);
+ 
+  // if filter has value and filtering returns empty array, return this
+  if (filterValue && !ahData?.length)
+    return (<Typography variant="h3" color="error">Filter didn't match any results!</Typography>);
+
   return (
     <div>
       {ahData.length > 0 && ahData[0].length > 0 ? (
