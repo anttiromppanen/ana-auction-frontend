@@ -32,13 +32,13 @@ const MainDataTable = ({ ahData }) => {
             <TableHead>
               <TableRowWithBorder>
                 <HeaderCell sx={{ borderRight: '5px solid #082032' }} />
-                <HeaderCell sx={{ borderRight: '5px solid #082032' }}>
+                <HeaderCell sx={{ borderRight: '5px solid #082032', display: { xl: 'block', sm: 'none' }}}>
                   ID
                 </HeaderCell>
                 <HeaderCell sx={{ borderRight: '5px solid #082032' }}>
                   Item
                 </HeaderCell>
-                <HeaderCell sx={{ borderRight: '5px solid #082032' }}>
+                <HeaderCell sx={{ borderRight: '5px solid #082032', display:{ xl: 'block', sm: 'none' } }}>
                   Num of listings
                 </HeaderCell>
                 <HeaderCell sx={{ borderRight: '5px solid #082032' }}>

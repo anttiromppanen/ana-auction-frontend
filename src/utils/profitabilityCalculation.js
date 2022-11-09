@@ -30,7 +30,6 @@ const averageCraftingPricePerOneItem = (items, ahData, materials) => {
   let totalAverage = 0;
 
   Object.entries(materials).forEach(([key, value]) => {
-    key === '40411' && console.log('vial true');
     filterByItem[key] = averageCraftingCosts[key];
     let amount = 0;
     let total = 0;
