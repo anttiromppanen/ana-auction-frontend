@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { DateTime } from 'luxon';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
@@ -15,6 +15,8 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 
 import MainDataTable from './MainDataTable';
 import renderDataLogic from '../../utils/sortAndFormatAuctionData';
+
+import { toggleShowMaterials } from '../../reducers/craftingMaterialsReducer';
 
 const blink = keyframes`
   from { opacity: 0; }
@@ -43,14 +45,20 @@ const showLastUpdated = () => {
 };
 
 const ShowAhData = () => {
+  const dispatch = useDispatch();
   const ahData = useSelector((state) => state.ahData);
   const activeProfession = useSelector((state) => state.activeProfession);
   const craftablesData = useSelector((state) => state.craftablesData);
   const filterValue = useSelector((state) => state.filter);
+  const showCraftingMaterials = useSelector((state) => state.showCraftingMaterials);
   const [timeFromUpdate, setTimeFromUpdate] = useState('never');
   const craftablesItems = new Map();
   const craftablesSortedByItem = new Map();
 
+  const handleSwitchChange = (event) => {
+    dispatch(toggleShowMaterials(event.target.checked));
+  };
+  
   const sortedAndFormattedData = renderDataLogic(
     craftablesData,
     craftablesItems,
@@ -84,7 +92,7 @@ const ShowAhData = () => {
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <FormGroup>
           <FormControlLabel
-            control={<Switch />}
+            control={<Switch checked={showCraftingMaterials} onChange={handleSwitchChange} />}
             label="Show crafting materials"
           />
         </FormGroup>

@@ -18,6 +18,7 @@ import HeaderCell from './HeaderCell';
 import ShowCurrency from '../../components/ShowCurrency';
 import AddToFavoritesStar from './AddToFavoritesStar';
 import ShowProfit from './ShowProfit';
+import CraftingMaterials from './CraftingMaterials';
 
 import profitabilityCalculation from '../../utils/profitabilityCalculation';
 
@@ -52,6 +53,7 @@ const TableCellWithoutBorder = styled(TableCell)(({ theme }) => ({
 
 const MainDataTableRow = ({ row }) => {
   const [open, setOpen] = React.useState(false);
+  const showCraftingMaterials = useSelector((state) => state.showCraftingMaterials);
   const { ahData, craftablesData } = useSelector((state) => state);
   const materialsCreatedFrom = craftablesData.find(
     (x) => Number(x._id) === Number(row[0].item.id)
@@ -106,6 +108,7 @@ const MainDataTableRow = ({ row }) => {
         <TableCellWithoutBorder style={{ padding: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <Typography variant="h4">{row[0].name}</Typography>
+            { showCraftingMaterials && <CraftingMaterials /> }
             <Table
               sx={{ marginBottom: '2rem' }}
               size="small"
