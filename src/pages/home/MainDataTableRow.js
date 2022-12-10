@@ -78,7 +78,7 @@ const MainDataTableRow = ({ row }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCellWithoutBorder>
-        <TableCellWithoutBorder component="th" scope="row" sx={{ display: { xl: 'block', sm: 'none' } }}>
+        <TableCellWithoutBorder component="th" scope="row">
           {row[0].item.id}
         </TableCellWithoutBorder>
         <TableCellWithoutBorder>
@@ -93,7 +93,7 @@ const MainDataTableRow = ({ row }) => {
             <Grid item>{row[0].name}</Grid>
           </Grid>
         </TableCellWithoutBorder>
-        <TableCellWithoutBorder sx={{ display: { xl: 'block', sm: 'none' } }}>{row.length}</TableCellWithoutBorder>
+        <TableCellWithoutBorder>{row.length}</TableCellWithoutBorder>
         <TableCellWithoutBorder>
           <ShowCurrency amount={row[0].buyout / row[0].quantity} />
         </TableCellWithoutBorder>
