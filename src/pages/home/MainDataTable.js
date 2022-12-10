@@ -23,7 +23,7 @@ const MainDataTable = ({ ahData }) => {
   // if filter has value and filtering returns empty array, return this
   if (filterValue && !ahData?.length)
     return (<Typography variant="h3" color="error">Filter didn't match any results!</Typography>);
-
+    
   return (
     <div>
       {ahData.length > 0 && ahData[0].length > 0 ? (

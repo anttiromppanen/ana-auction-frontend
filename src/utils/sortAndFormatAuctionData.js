@@ -22,6 +22,7 @@ const addItemsToCraftablesByItem = (
     if (x.buyout <= 0) return;
 
     const item = craftablesItems.get(x.item.id);
+    
     if (item) {
       craftablesSortedByItem
         .get(x.item.id)
@@ -75,7 +76,7 @@ const renderDataLogic = (
   const sortedItems = sortCraftablesByBuyout(
     getSortedCraftablesValues(craftablesSortedByItemValues)
   );
-
+  
   if (auctions.length) {
     window.sessionStorage.setItem('sortedAhData', JSON.stringify(sortedItems));
     window.sessionStorage.setItem(
